@@ -23,7 +23,6 @@ class PostController extends Controller
 
 
         $posts = Post::with('categories', 'user', 'comment', 'tags', 'post_tags')->paginate(6);
-        //dd($posts[0]);
         return Inertia::render('Posts/Index', [
             'posts' => $posts,
         ]);
@@ -57,8 +56,9 @@ class PostController extends Controller
             'content' => $request->content,
             'image' => $request->image->getClientOriginalName(),
         ]);
-
+        dd($post);
         $request->image->storeAs('upload', $request->image->getClientOriginalName(), 'public');
+
 
         session()->flash('success', 'Post created successfully. Thank you.');
         return redirect()->back();
